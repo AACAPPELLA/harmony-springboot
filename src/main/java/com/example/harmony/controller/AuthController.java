@@ -15,7 +15,7 @@ public class AuthController {
     private final UserService userService;
 
     //기본 회원가입
-    @PostMapping("/register/")
+    @PostMapping("/register")
     public ResponseDto<?> basicRegisterUser(@RequestBody @Valid CreateUserDto createUserDto) {
         return ResponseDto.created(userService.basicRegisterUser(createUserDto));
     }

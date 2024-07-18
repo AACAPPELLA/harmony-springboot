@@ -38,13 +38,9 @@ public class DefaultSucessHandler implements AuthenticationSuccessHandler {
         JwtTokenDto tokenDto = jwtUtil.generateTokens(userPrincipal.getId(), userPrincipal.getRole());
         userRepository.updateRefreshTokenAndLoginStatus(userPrincipal.getId(), tokenDto.getRefreshToken(), true);
         // WEB , APP 구분
-        String userAgent = request.getHeader("User-Agent");
+//        String userAgent = request.getHeader("User-Agent");
 
-        if (userAgent == null) {
-            setSuccessAppResponse(response, tokenDto);
-        } else {
-            setSuccessWebResponse(response, tokenDto);
-        }
+        setSuccessAppResponse(response, tokenDto);
     }
 
     private void setSuccessAppResponse(HttpServletResponse response, JwtTokenDto tokenDto) throws IOException {
