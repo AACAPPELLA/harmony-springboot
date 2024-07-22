@@ -30,6 +30,8 @@ public class UserService {
                 .password(passwordEncoder.encode(createUserDto.password()))
                 .name(createUserDto.name())
                 .phoneNumber(createUserDto.phoneNumber())
+                .email(createUserDto.email())
+                .disabled(createUserDto.eDisabled())
                 .eProvider(EProvider.DEFAULT)
                 .role(ERole.USER)
                 .build();
@@ -56,6 +58,14 @@ public class UserService {
 
     public UserDto getUser(Long userId) {
         return UserDto.fromEntity(userRepository.findById(userId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER)));
+    }
+
+    @Transactional
+    public Boolean updateUser(Long userId, CreateUserDto createUserDto) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
+        user.update(createUserDto.name(),passwordEncoder.encode(createUserDto.password()), createUserDto.phoneNumber(),
+                createUserDto.email(), createUserDto.eDisabled());
+        return Boolean.TRUE;
     }
 
 }

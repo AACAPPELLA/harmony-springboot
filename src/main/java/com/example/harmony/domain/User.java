@@ -78,7 +78,7 @@ public class User {
 
     @Builder
     public User(String serialId, String password, EProvider eProvider, ERole role
-            , String name, String phoneNumber) {
+            , String name, String phoneNumber, String email, EDisabled disabled) {
         this.serialId = serialId;
         this.password = password;
         this.eProvider = eProvider;
@@ -87,6 +87,8 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.createDate = LocalDate.now();
         this.isLogin = false;
+        this.email = email;
+        this.disabled = disabled;
     }
 
     public void register(String name, String phoneNumber) {
@@ -95,13 +97,23 @@ public class User {
         this.role = ERole.USER;
     }
 
-    public void update(String name, String phoneNumber) {
+    public void update(String name,String password, String phoneNumber, String email, EDisabled disabled) {
         if (name != null && !name.equals(this.name)) {
             this.name = name;
+        }
+        if (password != null && !password.equals(this.password)) {
+            this.password = password;
         }
         if (phoneNumber != null && !phoneNumber.equals(this.phoneNumber)) {
             this.phoneNumber = phoneNumber;
         }
+        if (email != null && !email.equals(this.email)) {
+            this.email = email;
+        }
+        if (disabled != null && !disabled.equals(this.disabled)) {
+            this.disabled = disabled;
+        }
+
 
     }
 

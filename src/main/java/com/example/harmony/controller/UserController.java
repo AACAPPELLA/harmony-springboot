@@ -28,5 +28,10 @@ public class UserController {
         return ResponseDto.ok(userService.withdrawalUser(userId));
     }
 
+    @PutMapping("")
+    public ResponseDto<?> updateUser(@UserId Long userId, @RequestBody CreateUserDto createUserDto) {
+        return ResponseDto.ok(userService.updateUser(userId, createUserDto));
+    }
+
 
 }

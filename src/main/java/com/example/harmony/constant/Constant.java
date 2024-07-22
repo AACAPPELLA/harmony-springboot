@@ -11,7 +11,7 @@ public class Constant {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final List<String> NO_NEED_AUTH_URLS = List.of(
-            "/auth/register/",
+            "/auth/register",
             "/auth/login",
             "/auth/refresh"
     );
