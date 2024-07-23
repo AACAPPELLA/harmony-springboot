@@ -68,4 +68,8 @@ public class UserService {
         return Boolean.TRUE;
     }
 
+    public Boolean checkId(String serialId) {
+        return userRepository.existsBySerialId(serialId);
+    }
+
 }

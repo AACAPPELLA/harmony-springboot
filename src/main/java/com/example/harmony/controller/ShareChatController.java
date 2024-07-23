@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class ShareChatController {
     private final ShareChatService shareChatService;
 
-    @GetMapping("")
-    public ResponseDto<?> getShare(@UserId Long userId, @Date String date) {
+    @GetMapping("/{date}")
+    public ResponseDto<?> getShare(@UserId Long userId, @Date @PathVariable String date) {
         return ResponseDto.ok(shareChatService.getShareChat(userId));
     }
 

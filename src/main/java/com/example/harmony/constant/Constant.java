@@ -13,6 +13,7 @@ public class Constant {
     public static final List<String> NO_NEED_AUTH_URLS = List.of(
             "/auth/register",
             "/auth/login",
-            "/auth/refresh"
+            "/auth/refresh",
+            "/auth/check"
     );
 }
