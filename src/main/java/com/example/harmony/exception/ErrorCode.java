@@ -32,6 +32,7 @@ public enum ErrorCode {
     ACCESS_DENIED_ERROR(40300, HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
 
     NOT_FOUND_USER(40401, HttpStatus.NOT_FOUND, "해당 사용자가 존재하지 않습니다."),
+    NOT_FOUND_SHARE_CHAT(40402, HttpStatus.NOT_FOUND, "해당 공유채팅이 존재하지 않습니다."),
 
     SERVER_ERROR(50000, HttpStatus.INTERNAL_SERVER_ERROR, "서버 에러 입니다.");
 

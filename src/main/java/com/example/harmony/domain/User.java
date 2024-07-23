@@ -1,5 +1,6 @@
 package com.example.harmony.domain;
 
+import com.example.harmony.domain.ShareChat.ShareChat;
 import com.example.harmony.type.EDisabled;
 import com.example.harmony.type.EProvider;
 import com.example.harmony.type.ERole;
@@ -65,8 +66,8 @@ public class User {
     @Column(name = "device_token")
     private String deviceToken;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<Diary> diaryList = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ShareChat> diaryList = new ArrayList<>();
 
     public User(String socialId, String password, EProvider eProvider, ERole role) {
         this.password = password;
@@ -89,12 +90,6 @@ public class User {
         this.isLogin = false;
         this.email = email;
         this.disabled = disabled;
-    }
-
-    public void register(String name, String phoneNumber) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.role = ERole.USER;
     }
 
     public void update(String name,String password, String phoneNumber, String email, EDisabled disabled) {
