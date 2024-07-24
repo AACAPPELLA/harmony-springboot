@@ -1,7 +1,6 @@
 package com.example.harmony.domain;
 
 import com.example.harmony.domain.ShareChat.ShareChat;
-import com.example.harmony.type.EDisabled;
 import com.example.harmony.type.EProvider;
 import com.example.harmony.type.ERole;
 import jakarta.persistence.*;
@@ -59,9 +58,8 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "disabled")
-    private EDisabled disabled;
+    @Column(name = "age")
+    private Integer age;
 
     @Column(name = "device_token")
     private String deviceToken;
@@ -79,7 +77,7 @@ public class User {
 
     @Builder
     public User(String serialId, String password, EProvider eProvider, ERole role
-            , String name, String phoneNumber, String email, EDisabled disabled) {
+            , String name, String phoneNumber, String email, Integer age) {
         this.serialId = serialId;
         this.password = password;
         this.eProvider = eProvider;
@@ -89,10 +87,10 @@ public class User {
         this.createDate = LocalDate.now();
         this.isLogin = false;
         this.email = email;
-        this.disabled = disabled;
+        this.age = age;
     }
 
-    public void update(String name,String password, String phoneNumber, String email, EDisabled disabled) {
+    public void update(String name, String password, String phoneNumber, String email, Integer age) {
         if (name != null && !name.equals(this.name)) {
             this.name = name;
         }
@@ -105,10 +103,9 @@ public class User {
         if (email != null && !email.equals(this.email)) {
             this.email = email;
         }
-        if (disabled != null && !disabled.equals(this.disabled)) {
-            this.disabled = disabled;
+        if (age != null && !age.equals(this.age)) {
+            this.age = age;
         }
-
 
     }
 

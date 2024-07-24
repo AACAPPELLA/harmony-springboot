@@ -31,8 +31,7 @@ public class UserService {
                 .name(createUserDto.name())
                 .phoneNumber(createUserDto.phoneNumber())
                 .email(createUserDto.email())
-                .disabled(createUserDto.eDisabled())
-                .eProvider(EProvider.DEFAULT)
+                .age(createUserDto.age())
                 .role(ERole.USER)
                 .build();
 
@@ -64,7 +63,7 @@ public class UserService {
     public Boolean updateUser(Long userId, CreateUserDto createUserDto) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
         user.update(createUserDto.name(),passwordEncoder.encode(createUserDto.password()), createUserDto.phoneNumber(),
-                createUserDto.email(), createUserDto.eDisabled());
+                createUserDto.email(), createUserDto.age());
         return Boolean.TRUE;
     }
 
