@@ -79,7 +79,7 @@ public class UserService {
     }
 
     public String checkUser(String serialId, String name, String phoneNumber) {
-        User user = userRepository.findBySerialIdAndNameAndPhoneNumber(serialId, name, phoneNumber)
+        UserRepository.UserSecurityForm user = userRepository.findBySerialIdAndNameAndPhoneNumber(serialId, name, phoneNumber)
                 .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
 
         String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getRole(), jwtUtil.getAccessTokenExpriration());
