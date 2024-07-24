@@ -77,7 +77,7 @@ public class User {
 
     @Builder
     public User(String serialId, String password, EProvider eProvider, ERole role
-            , String name, String phoneNumber, String email, Integer age) {
+            , String name, String phoneNumber, Integer age) {
         this.serialId = serialId;
         this.password = password;
         this.eProvider = eProvider;
@@ -86,11 +86,10 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.createDate = LocalDate.now();
         this.isLogin = false;
-        this.email = email;
         this.age = age;
     }
 
-    public void update(String name, String password, String phoneNumber, String email, Integer age) {
+    public void update(String name, String password, String phoneNumber, Integer age) {
         if (name != null && !name.equals(this.name)) {
             this.name = name;
         }
@@ -100,13 +99,14 @@ public class User {
         if (phoneNumber != null && !phoneNumber.equals(this.phoneNumber)) {
             this.phoneNumber = phoneNumber;
         }
-        if (email != null && !email.equals(this.email)) {
-            this.email = email;
-        }
         if (age != null && !age.equals(this.age)) {
             this.age = age;
         }
-
+    }
+    public void update(String password){
+        if (password != null && !password.equals(this.password)) {
+            this.password = password;
+        }
     }
 
     public void setLogin(Boolean login) {

@@ -33,5 +33,10 @@ public class UserController {
         return ResponseDto.ok(userService.updateUser(userId, createUserDto));
     }
 
+    @PatchMapping("/password")
+    public ResponseDto<?> updatePassword(@UserId Long userId, @RequestBody CreateUserDto createUserDto) {
+        return ResponseDto.ok(userService.updatePassword(userId, createUserDto));
+    }
+
 
 }

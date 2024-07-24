@@ -14,6 +14,7 @@ public class Constant {
             "/auth/register",
             "/auth/login",
             "/auth/refresh",
-            "/auth/check"
+            "/auth/check/id",
+            "/auth/check/password"
     );
 }

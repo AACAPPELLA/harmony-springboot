@@ -25,6 +25,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Boolean existsBySerialId (String serialId);
 
+    Optional<User> findBySerialIdAndNameAndPhoneNumber(String serialId, String name, String phoneNumber);
+
 
     interface UserSecurityForm {
 

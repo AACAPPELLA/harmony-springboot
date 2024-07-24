@@ -30,8 +30,8 @@ public class UserService {
                 .password(passwordEncoder.encode(createUserDto.password()))
                 .name(createUserDto.name())
                 .phoneNumber(createUserDto.phoneNumber())
-                .email(createUserDto.email())
                 .age(createUserDto.age())
+                .eProvider(EProvider.DEFAULT)
                 .role(ERole.USER)
                 .build();
 
@@ -62,13 +62,29 @@ public class UserService {
     @Transactional
     public Boolean updateUser(Long userId, CreateUserDto createUserDto) {
         User user = userRepository.findById(userId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
-        user.update(createUserDto.name(),passwordEncoder.encode(createUserDto.password()), createUserDto.phoneNumber(),
-                createUserDto.email(), createUserDto.age());
+        user.update(createUserDto.name(),passwordEncoder.encode(createUserDto.password()),
+                createUserDto.phoneNumber(), createUserDto.age());
+        return Boolean.TRUE;
+    }
+
+    @Transactional
+    public Boolean updatePassword(Long userId, CreateUserDto createUserDto) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
+        user.update(passwordEncoder.encode(createUserDto.password()));
         return Boolean.TRUE;
     }
 
     public Boolean checkId(String serialId) {
         return userRepository.existsBySerialId(serialId);
+    }
+
+    public String checkUser(String serialId, String name, String phoneNumber) {
+        User user = userRepository.findBySerialIdAndNameAndPhoneNumber(serialId, name, phoneNumber)
+                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
+
+        String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getRole(), jwtUtil.getAccessTokenExpriration());
+
+        return accessToken;
     }
 
 }
