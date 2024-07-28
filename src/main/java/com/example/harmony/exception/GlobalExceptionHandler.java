@@ -22,6 +22,12 @@ import java.time.format.DateTimeParseException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler({HandlerMethodValidationException.class})
+    public ResponseDto<?> handleHandlerMethodValidationException(HandlerMethodValidationException e) {
+        log.error("Handler in HandlerMethodValidationException Error Message = " + e.getMessage());
+        return ResponseDto.fail(new CommonException(ErrorCode.INVALID_ARGUMENT));
+    }
+
     @ExceptionHandler({HttpMediaTypeNotSupportedException.class, MultipartException.class})
     public ResponseDto<?> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
         log.error("Handler in HttpMediaTypeNotSupportedException Error Message = " + e.getMessage());

@@ -55,14 +55,10 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "age")
     private Integer age;
 
-    @Column(name = "device_token")
-    private String deviceToken;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ShareChat> shareChatList = new ArrayList<>();
@@ -103,7 +99,8 @@ public class User {
             this.age = age;
         }
     }
-    public void update(String password){
+
+    public void update(String password) {
         if (password != null && !password.equals(this.password)) {
             this.password = password;
         }
