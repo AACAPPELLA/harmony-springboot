@@ -10,6 +10,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -34,21 +35,36 @@ public class ShareChat {
     @OneToMany(mappedBy = "shareChat", cascade = CascadeType.ALL)
     private List<Chat> chat;
 
-    @Embedded
-    private Summary summary;
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "summary_subjects", joinColumns = @JoinColumn(name = "share_chat_id"))
+    @Column(name = "subject")
+    private Set<String> subjects;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "summary_details", joinColumns = @JoinColumn(name = "share_chat_id"))
+    @Column(name = "detail")
+    private Set<String> details;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "summary_keywords", joinColumns = @JoinColumn(name = "share_chat_id"))
+    @Column(name = "keyword")
+    private Set<String> keywords;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Builder
-    public ShareChat(User user,String title, Long totalTime, List<Chat> chat, Summary summary) {
+    public ShareChat(User user,String title, Long totalTime, List<Chat> chat, Set<String> subjects, Set<String> details, Set<String> keywords) {
         this.user = user;
         this.title = title;
         this.createdDate = LocalDateTime.now();
         this.totalTime = totalTime;
         this.chat = chat;
-        this.summary = summary;
+        this.subjects = subjects;
+        this.details = details;
+        this.keywords = keywords;
+
     }
 }
 

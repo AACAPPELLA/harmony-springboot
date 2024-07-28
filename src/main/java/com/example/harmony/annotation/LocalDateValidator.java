@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 
 @Slf4j
 public class LocalDateValidator implements ConstraintValidator<Date, CharSequence> {
-    static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     @Override
     public void initialize(Date constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);

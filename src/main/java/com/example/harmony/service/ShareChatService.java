@@ -2,7 +2,6 @@ package com.example.harmony.service;
 
 import com.example.harmony.domain.ShareChat.Chat;
 import com.example.harmony.domain.ShareChat.ShareChat;
-import com.example.harmony.domain.ShareChat.Summary;
 import com.example.harmony.domain.User;
 import com.example.harmony.dto.request.CreateShareChatDto;
 import com.example.harmony.dto.response.ShareChatDto;
@@ -14,6 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,11 +41,9 @@ public class ShareChatService {
                 .title(createShareChatDto.title())
                 .totalTime(createShareChatDto.totalTime())
                 .chat(chatList)
-                .summary(Summary.builder()
-                        .details(createShareChatDto.summary().details())
-                        .keywords(createShareChatDto.summary().keywords())
-                        .subjects(createShareChatDto.summary().subjects())
-                        .build())
+                .subjects(createShareChatDto.subjects().stream().collect(Collectors.toSet()))
+                .details(createShareChatDto.details().stream().collect(Collectors.toSet()))
+                .keywords(createShareChatDto.keywords().stream().collect(Collectors.toSet()))
                 .build();
 
         shareChatRepository.save(shareChat);
@@ -55,13 +53,18 @@ public class ShareChatService {
         return true;
     }
 
-    public ShareChatDto getShareChat(Long shareChatId) {
-        ShareChat shareChat = shareChatRepository.findById(shareChatId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_SHARE_CHAT));
+    @Transactional
+    public List<ShareChatDto> getShareChat(Long userId, LocalDate date) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
+        List<ShareChat> shareChatList = shareChatRepository.findShareChatsByUserAndCreatedDate(user, date);
 
-        return ShareChatDto.from(shareChat);
+
+        return shareChatList.stream()
+                .map(shareChat -> ShareChatDto.from(shareChat))
+                .collect(Collectors.toList());
     }
 
-    public Boolean deleteShare(Long userId,Long shareChatId) {
+    public Boolean deleteShare(Long userId, Long shareChatId) {
         ShareChat shareChat = shareChatRepository.findById(shareChatId).orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_SHARE_CHAT));
         if (userId != shareChat.getUser().getId()) {
             throw new CommonException(ErrorCode.ACCESS_DENIED_ERROR);

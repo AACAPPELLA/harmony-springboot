@@ -65,7 +65,7 @@ public class User {
     private String deviceToken;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<ShareChat> diaryList = new ArrayList<>();
+    private List<ShareChat> shareChatList = new ArrayList<>();
 
     public User(String socialId, String password, EProvider eProvider, ERole role) {
         this.password = password;

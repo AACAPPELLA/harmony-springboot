@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/shares")
@@ -18,7 +20,7 @@ public class ShareChatController {
 
     @GetMapping("/{date}")
     public ResponseDto<?> getShare(@UserId Long userId, @Date @PathVariable String date) {
-        return ResponseDto.ok(shareChatService.getShareChat(userId));
+        return ResponseDto.ok(shareChatService.getShareChat(userId, LocalDate.parse(date)));
     }
 
     @PostMapping("")
