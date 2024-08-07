@@ -25,7 +25,7 @@ public class ShareChatController {
     }
 
     @PostMapping("")
-    public ResponseDto<?> createShare(@UserId Long userId, @RequestBody CreateShareChatDto createShareChatDto) {
+    public ResponseDto<?> createShare(@UserId Long userId, @RequestBody @Valid CreateShareChatDto createShareChatDto) {
         return ResponseDto.created(shareChatService.createShareChat(userId, createShareChatDto));
     }
 
