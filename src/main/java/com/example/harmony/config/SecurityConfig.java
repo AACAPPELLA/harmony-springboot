@@ -48,6 +48,7 @@ public class SecurityConfig {
                 .sessionManagement((sessionManagement) ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(requestMatcherRegistry -> requestMatcherRegistry
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/users/**").hasAnyRole((ERole.USER.toString()),ERole.ADMIN.toString())
                         .requestMatchers("/admin/**").hasRole(ERole.ADMIN.toString())

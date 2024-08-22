@@ -15,6 +15,7 @@ public class Constant {
             "/auth/login",
             "/auth/refresh",
             "/auth/check/id",
-            "/auth/check/password"
+            "/auth/check/password",
+            "/actuator/prometheus"
     );
 }
